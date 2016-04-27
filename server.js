@@ -16,7 +16,18 @@ app.set('view engine', 'hbs');
 app.use(express.static('public'));
 
 app.get('/', function(request,response) {
-    response.render('home');
+    var favoriteShow = ['Saul', 'Walking Dead','Game of Thrones'];
+    var favoriteLinks = [
+        { text: "Facebook", url: 'http://facebook.com'},
+        { text: "CNN", url: 'http://cnn.com'},
+        { text: "ESPN", url: 'http://espn.com'}
+      ];
+    
+    response.render('home', {
+      title: 'home page',
+      favorites: favoriteShow,
+      links: favoriteLinks
+  });
 });
 
 app.get('/projects', function(request,response) {

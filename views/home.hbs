@@ -1,1 +1,18 @@
 <h1>My Creation</h1>
+
+<h2>Favorite Show</h2>
+<ul>
+    {{#each favorites as |favorite| }}
+        <li>{{favorite}}</li>
+    {{/each}}
+</ul>
+
+<h2>Favorite Links</h2>
+<ul>
+    {{#each links as |link| }}
+        <li><a href="{{link.url}}">{{link.text}}</a></li>
+    {{/each}}
+</ul>
+
+
+
