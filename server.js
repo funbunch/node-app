@@ -34,6 +34,18 @@ app.get('/projects', function(request,response) {
     response.render('newproject');
 });
 
+app.get('/books', function(request,response) {
+    var myBooks = [
+        {text: "Luckiest Girl Alive", url: 'http://www.amazon.com/gp/product/1476789649/ref=s9_simh_bw_p14_d0_i2?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-3&pf_rd_r=0M19844YXVX4RV50XQJB&pf_rd_t=101&pf_rd_p=2394961222&pf_rd_i=283155', author:'Jessica Knoll'},
+        {text: "Clean Code", url: 'http://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?s=books&ie=UTF8&qid=1462679682&sr=1-1&keywords=clean+code', author:'Robert Martin'},
+        {text: "The Girl on the Train", url: 'http://www.amazon.com/Girl-Train-Paula-Hawkins/dp/1594633665?ie=UTF8&redirect=true&ref_=nav_signin', author:'Paula Martin'}
+        ];
+    response.render('books', {
+        books: myBooks
+    });
+ });
+    
+
 app.listen(port, function(){
     console.log('Server is running on ' + port);
 

@@ -1,0 +1,6 @@
+<h1>My Books </h1>
+    <ul>
+    {{#each books as |book| }}
+        <li><a href="{{book.url}}">{{book.text}}</a> by {{book.author}}</li>
+    {{/each}}
+</ul>
