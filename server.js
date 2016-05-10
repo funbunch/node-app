@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var templates = require('express-handlebars');
+var axios = require('axios');
 var port = process.env.PORT || 3000;
 
 app.set('views', 'views');
@@ -31,7 +32,18 @@ app.get('/', function(request,response) {
 });
 
 app.get('/projects', function(request,response) {
-    response.render('newproject');
+    var options = {
+        headers: {
+            'User-Agent': 'funbunch'
+        }
+    };
+    
+    axios.get('https://api.github.com/users/funbunch',options)
+    .then(function(results){
+        console.log(results.data);
+        });
+        
+    response.render('projects', {title: 'My Projects'});
 });
 
 app.get('/books', function(request,response) {
