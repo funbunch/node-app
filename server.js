@@ -9,7 +9,12 @@ app.set('views', 'views');
 app.engine('hbs', templates({
   extname: 'hbs',
   defaultLayout: 'main',
-  layoutsDir: './views/layouts'
+  layoutsDir: './views/layouts',
+  helpers: {
+      json:function(context) {
+          return JSON.stringify(context);
+      }
+  }
 }));
 
 app.set('view engine', 'hbs');
@@ -40,10 +45,9 @@ app.get('/projects', function(request,response) {
     
     axios.get('https://api.github.com/users/funbunch',options)
     .then(function(results){
-        console.log(results.data);
-        });
-        
-    response.render('projects', {title: 'My Projects'});
+    
+        response.render('projects', {title: 'My Projects', bio:results.data});
+    });
 });
 
 app.get('/books', function(request,response) {
