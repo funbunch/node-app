@@ -38,9 +38,15 @@ app.get('/', function(request,response) {
 });
 
 app.get('/projects', function(request,response) {
-    githubService.getBio()
+    githubService.githubInfo()
     .then(function(results){
-        response.render('projects', {title: 'My Projects', bio:results.data});
+        response.render('projects',
+        {
+            title: 'My Projects', 
+            bio:results.bio,
+            repos: results.repos
+            
+        });
     });
 });
 
