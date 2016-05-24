@@ -4,6 +4,8 @@ var templates = require('express-handlebars');
 var axios = require('axios');
 var port = process.env.PORT || 3000;
 var githubService = require('./services/githubService.js');
+var projectInfoService = require('./services/projectInfoService.js');
+var moment = require('moment');
 
 app.set('views', 'views');
 
@@ -14,6 +16,9 @@ app.engine('hbs', templates({
   helpers: {
       json:function(context) {
           return JSON.stringify(context);
+      },
+      formatDate: function(date, format) {
+          return moment(date).format(format);
       }
   }
 }));
@@ -40,13 +45,49 @@ app.get('/', function(request,response) {
 app.get('/projects', function(request,response) {
     githubService.githubInfo()
     .then(function(results){
+        var repos = results.repos;
+        repos.forEach(function(repo, index) {
+            repos[index].hasPost = projectInfoService.fileExists(repo.name);
+        });
+            
         response.render('projects',
-        {
+         {
             title: 'My Projects', 
             bio:results.bio,
             repos: results.repos
             
-        });
+            }
+     );
+    })
+    .catch(function (err) {
+        console.log('err: ', err);
+    });
+});
+
+app.get('/projects/:id', function(request, response) {
+    var currentProjectName = request.params.id;
+    var currentProject = {};
+    
+    projectInfoService.readFile(currentProjectName, function(err, results){
+        if(err) {
+         currentProject = {
+            post: currentProjectName + 'is invalid'
+         };   
+        }  else {
+           currentProject = {
+               name: currentProjectName,
+               post:results,
+               url: 'https://github.com/funbunch/' + currentProjectName
+               
+        };  
+    }
+    response.render('project',
+        {
+            title: 'My Projects' + currentProjectName,
+            project: currentProject
+        }
+    
+        );
     });
 });
 

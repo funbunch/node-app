@@ -5,7 +5,7 @@
     <ul class="list-group">
       <li class="list-group-item"><img src="{{bio.avatar_url}}" class="img-rounded img-responsive"/></li>
       <li class="list-group-item">{{bio.login}}</li>
-      <li class="list-group-item">Date joined: {{bio.created_at}}</li>
+      <li class="list-group-item">Date joined: {{formatDate bio.created_at 'MMMM D, YYYY'}}</li>
     </ul>
   </div>
 
@@ -24,8 +24,15 @@
         <p>
           {{repo.description}}
         </p>
+        
+        {{#if repo.hasPost}}
+        <p>
+          <a href="/projects/{{repo.name}}">More info</a>
+        </p>
+        {{/if}}
+        
         <p class="repo-list-meta">
-          {{repo.updated_at}}
+          {{formatDate repo.updated_at 'MMMM D, YYYY'}}
         </p>
       </li>
       {{/each}}
