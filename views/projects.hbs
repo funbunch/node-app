@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-4">
     <ul class="list-group">
-      <li class="list-group-item">avatar <img src="{{bio.avatar_url}}" class="img-rounded img-responsive"/></li>
+      <li class="list-group-item"><img src="{{bio.avatar_url}}" class="img-rounded img-responsive"/></li>
       <li class="list-group-item">{{bio.login}}</li>
       <li class="list-group-item">Date joined: {{bio.created_at}}</li>
     </ul>
@@ -19,13 +19,13 @@
           <span class="repo-list-stat-item"><i class="fa fa-code-fork"></i>1</span>
         </div>
         <h4>
-          {{repo.name}}
+          <a href="{{repo.html_url}}">{{repo.name}}</a>
         </h4>
         <p>
           {{repo.description}}
         </p>
         <p class="repo-list-meta">
-          Updated on Jan 1, 2016
+          {{repo.updated_at}}
         </p>
       </li>
       {{/each}}
